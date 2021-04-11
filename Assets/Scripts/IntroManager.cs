@@ -14,11 +14,18 @@ public class IntroManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void MoveToMainScene()
     {
-        SceneManager.LoadScene("Main");
+        if (PlayerPrefs.GetInt("SettingsCompleted") == 0)
+        {
+            SceneManager.LoadScene("InitialSettings");
+        }
+        else
+        {
+            SceneManager.LoadScene("Main");
+        }
     }
 }
