@@ -17,7 +17,7 @@ public class SceneController : MonoBehaviour
         
     }
 
-    void MoveToScene(string scene)
+    public void MoveToScene(string scene)
     {
         SceneManager.LoadScene(scene);
     }
