@@ -781,7 +781,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -337}
-  m_SizeDelta: {x: 879.4626, y: 243.4338}
+  m_SizeDelta: {x: 907.9129, y: 243.4338}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1611442736
 MonoBehaviour:
@@ -805,7 +805,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7a82622d4b0359d47aee8bd06ab87300, type: 3}
-    m_FontSize: 80
+    m_FontSize: 90
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -984,14 +984,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1861187065}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5101ab1dad6afee4085c9e8c32565a3e, type: 3}
+  m_Script: {fileID: 11500000, guid: 56f0b3a59bf7ca648bad946a06733cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TitleText: {fileID: 1611442736}
-  DescriptionText: {fileID: 2140154549}
-  TextInputField: {fileID: 2109193073}
-  PositiveButton: {fileID: 1711130972}
-  NegativeButton: {fileID: 12042317}
+  titleText: {fileID: 1611442736}
+  descriptionText: {fileID: 2140154549}
+  textInputField: {fileID: 2109193073}
+  positiveButton: {fileID: 1711130972}
+  negativeButton: {fileID: 12042317}
 --- !u!4 &1861187067
 Transform:
   m_ObjectHideFlags: 0
@@ -1000,7 +1000,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1861187065}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -325.34695, y: 1380.5706, z: 1.4697266}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1043,7 +1043,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 70}
+  m_AnchoredPosition: {x: 0, y: 141.61}
   m_SizeDelta: {x: 905.9818, y: 452.9909}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2109193073
@@ -1208,7 +1208,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 69e100c9a35b92c4c87bc33687113681, type: 3}
-    m_FontSize: 60
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0

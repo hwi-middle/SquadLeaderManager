@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InitSettingsSceneController : MonoBehaviour
 {
@@ -85,6 +86,9 @@ public class InitSettingsSceneController : MonoBehaviour
                 descriptionText.text = "디데이 세드리려고 합니다 ;)";
                 positiveButtonText.text = "언제냐면..";
                 negativeButtonText.text = "뒤로";
+                break;
+            case 4:
+                SceneManager.LoadScene("Main");
                 break;
         }
     }
