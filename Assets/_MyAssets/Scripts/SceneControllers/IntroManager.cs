@@ -1,3 +1,5 @@
+#define SKIP_INIT_SETTINGS
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +21,9 @@ public class IntroManager : MonoBehaviour
 
     private void MoveToMainScene()
     {
+#if SKIP_INIT_SETTINGS
+        SceneManager.LoadScene("Main");
+#else
         if (PlayerPrefs.GetInt("SettingsCompleted") == 0)
         {
             SceneManager.LoadScene("InitialSettings");
@@ -27,5 +32,6 @@ public class IntroManager : MonoBehaviour
         {
             SceneManager.LoadScene("Main");
         }
+#endif
     }
 }
