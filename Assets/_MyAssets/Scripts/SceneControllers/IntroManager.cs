@@ -1,4 +1,4 @@
-#define SKIP_INIT_SETTINGS
+//#define SKIP_INIT_SETTINGS
 
 using System.Collections;
 using System.Collections.Generic;

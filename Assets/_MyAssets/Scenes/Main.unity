@@ -1595,6 +1595,7 @@ MonoBehaviour:
   iconArr:
   - {fileID: 0}
   nameText: {fileID: 1611442736}
+  dDayText: {fileID: 186030528}
 --- !u!4 &998651610
 Transform:
   m_ObjectHideFlags: 0

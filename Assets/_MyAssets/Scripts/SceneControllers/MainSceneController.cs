@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,11 +11,26 @@ public class MainSceneController : MonoBehaviour
     private int curIdx = 0;
 
     public Text nameText;
+    public Text dDayText;
 
     // Start is called before the first frame update
     void Start()
     {
         nameText.text = PlayerPrefs.GetString("UserName");
+        DateTime targetDay = DateTime.Parse(PlayerPrefs.GetString("DDay"));
+        int totalDays = (int)((targetDay - DateTime.Today).TotalDays);
+        if(totalDays>0)
+        {
+            dDayText.text = "D-" + totalDays.ToString();
+        }
+        else if (totalDays < 0)
+        {
+            dDayText.text = "D+" + (-totalDays).ToString();
+        }
+        else
+        {
+            dDayText.text = "D-Day";
+        }
     }
 
     // Update is called once per frame
