@@ -185,7 +185,7 @@ public class InitSettingsSceneController : MonoBehaviour
             case 6:
                 string input = textInputField.text;
                 string parse = "20" + input.Substring(0, 2) + "-" + input.Substring(2, 2) + "-" + input.Substring(4, 2);
-                Debug.Log(parse);
+
                 PlayerPrefs.SetString("DDay", parse);
                 //DateTime targetDay = DateTime.Parse(parse);
                 DateTime targetDay;
@@ -206,7 +206,7 @@ public class InitSettingsSceneController : MonoBehaviour
 
                 textInputField.gameObject.SetActive(false);
 
-                titleText.text = "마지막 확인이예요!";
+                titleText.text = "마지막 확인이에요!";
                 descriptionText.text = "전역일이 " + targetDay.Year + "년 " + targetDay.Month + "월 " + targetDay.Day + "일 맞나요?";
                 positiveButtonText.text = "예";
                 negativeButtonText.text = "아니오";
