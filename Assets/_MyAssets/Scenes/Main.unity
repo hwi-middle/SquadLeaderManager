@@ -1596,6 +1596,9 @@ MonoBehaviour:
   - {fileID: 0}
   nameText: {fileID: 1611442736}
   dDayText: {fileID: 186030528}
+  moneyText: {fileID: 1195285397}
+  queueText: {fileID: 1051024902}
+  squadText: {fileID: 1661587529}
 --- !u!4 &998651610
 Transform:
   m_ObjectHideFlags: 0
