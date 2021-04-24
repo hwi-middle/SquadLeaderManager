@@ -9,7 +9,6 @@ public enum ECanvasType
     Home,
     Account,
     Queue,
-    Squad,
     Settings
 };
 

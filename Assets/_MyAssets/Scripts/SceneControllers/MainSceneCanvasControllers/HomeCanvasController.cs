@@ -14,17 +14,6 @@ public class HomeCanvasController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnEnable()
-    {
         nameText.text = PlayerPrefs.GetString("UserName");
 
         //디데이 불러오기
@@ -50,5 +39,11 @@ public class HomeCanvasController : MonoBehaviour
         //분대 총원 불러오기
         squadText.text = PlayerPrefs.GetInt("Squad").ToString();
         squadText.text += "명";
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }
