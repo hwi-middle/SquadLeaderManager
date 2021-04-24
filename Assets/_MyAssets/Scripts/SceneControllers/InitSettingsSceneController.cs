@@ -213,6 +213,7 @@ public class InitSettingsSceneController : MonoBehaviour
                 break;
 
             case 7:
+                PlayerPrefs.SetInt("SettingsCompleted", 1);
                 SceneManager.LoadScene("Main");
                 break;
         }
