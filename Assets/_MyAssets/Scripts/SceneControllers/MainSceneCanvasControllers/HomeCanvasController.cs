@@ -9,7 +9,6 @@ public class HomeCanvasController : MonoBehaviour
     public Text nameText;
     public Text dDayText;
     public Text moneyText;
-    public Text queueText;
     public Text squadText;
 
     // Start is called before the first frame update
@@ -47,10 +46,6 @@ public class HomeCanvasController : MonoBehaviour
         //분지비 불러오기
         moneyText.text = string.Format("{0:n0}", PlayerPrefs.GetInt("Money"));
         moneyText.text += "원";
-
-        //물품구매 희망인원 불러오기
-        queueText.text = PlayerPrefs.GetInt("Queue").ToString();
-        queueText.text += "명";
 
         //분대 총원 불러오기
         squadText.text = PlayerPrefs.GetInt("Squad").ToString();
