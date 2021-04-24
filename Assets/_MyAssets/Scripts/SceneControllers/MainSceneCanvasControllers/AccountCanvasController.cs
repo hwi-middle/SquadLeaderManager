@@ -34,7 +34,8 @@ public class AccountCanvasController : MonoBehaviour
         //data.Add(new AccountData("210127", EAccountDataType.Income, 3000, 30000, "가나다3"));
 
         //saveData();
-        loadData();
+        //loadData();
+        addData(new AccountData("201213", EAccountDataType.Expenditure, 10000, 43000, "가나다1"));
     }
 
     // Update is called once per frame
@@ -46,7 +47,7 @@ public class AccountCanvasController : MonoBehaviour
     private void addData(AccountData data)
     {
         GameObject dataObject = Instantiate(dataPrefab);
-        dataObject.transform.SetParent(dataPrefabParent.transform);
+        dataObject.transform.SetParent(dataPrefabParent.transform, false);
         dataObject.GetComponent<AccountDataObject>().SetData(data);
     }
 
