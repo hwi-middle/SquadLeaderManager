@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "ce081718ed67e906057e",
         "name": "com.DefaultCompany.NewUnityProject",
-        "processId": 29879,
+        "processId": 15855,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -18,6 +18,12 @@
             "deviceId": "ce081718ed67e906057e",
             "name": "com.DefaultCompany.NewUnityProject",
             "processId": 29879,
+            "exited": false
+        },
+        {
+            "deviceId": "ce081718ed67e906057e",
+            "name": "com.DefaultCompany.NewUnityProject",
+            "processId": 15855,
             "exited": false
         }
     ],

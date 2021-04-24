@@ -17,6 +17,7 @@ public class InitSettingsSceneController : MonoBehaviour
     public GameObject rankPanel;
     public Image[] rankBars;
 
+    private string userName = "";
     private int dialogPage = 0;
     private ERanks rank = ERanks.Ilbyung;
 
@@ -84,9 +85,9 @@ public class InitSettingsSceneController : MonoBehaviour
                 break;
 
             case 2:
-                string name = textInputField.text;
-                PlayerPrefs.SetString("UserName", name);
-                if (name == "")
+                rankPanel.SetActive(false);
+                userName = textInputField.text;
+                if (userName == "")
                 {
                     titleText.text = "다시 입력해주세요.";
                     descriptionText.text = "이름은 비워둘 수 없습니다.";
@@ -96,7 +97,7 @@ public class InitSettingsSceneController : MonoBehaviour
 
                 textInputField.gameObject.SetActive(false);
                 titleText.text = "확인하겠습니다.";
-                descriptionText.text = name + " 분대장님 맞으신가요?";
+                descriptionText.text = userName + " 분대장님 맞으신가요?";
 
                 positiveButtonText.text = "예";
                 negativeButtonText.text = "아니오";
@@ -149,7 +150,7 @@ public class InitSettingsSceneController : MonoBehaviour
             case 4:
                 rankPanel.SetActive(false);
                 titleText.text = "확인하겠습니다.";
-                descriptionText.text = PlayerPrefs.GetString("UserName");
+                descriptionText.text = userName;
                 switch (rank)
                 {
                     case ERanks.Ilbyung:
@@ -189,7 +190,7 @@ public class InitSettingsSceneController : MonoBehaviour
                 PlayerPrefs.SetString("DDay", parse);
                 //DateTime targetDay = DateTime.Parse(parse);
                 DateTime targetDay;
-                if(input == "")
+                if (input == "")
                 {
                     titleText.text = "다시 입력해주세요.";
                     descriptionText.text = "전역일은 비워둘 수 없습니다.";
@@ -213,7 +214,9 @@ public class InitSettingsSceneController : MonoBehaviour
                 break;
 
             case 7:
+                PlayerPrefs.SetString("UserName", userName);
                 PlayerPrefs.SetInt("SettingsCompleted", 1);
+                PlayerPrefs.SetInt("Squad", 1);
                 SceneManager.LoadScene("Main");
                 break;
         }
