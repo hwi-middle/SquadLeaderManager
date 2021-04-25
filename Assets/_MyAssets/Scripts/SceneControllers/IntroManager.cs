@@ -21,17 +21,18 @@ public class IntroManager : MonoBehaviour
 
     private void MoveToMainScene()
     {
-#if SKIP_INIT_SETTINGS
         SceneManager.LoadScene("Main");
-#else
-        if (PlayerPrefs.GetInt("SettingsCompleted") == 0)
-        {
-            SceneManager.LoadScene("InitialSettings");
-        }
-        else
-        {
-            SceneManager.LoadScene("Main");
-        }
-#endif
+//#if SKIP_INIT_SETTINGS
+//        SceneManager.LoadScene("Main");
+//#else
+//        if (PlayerPrefs.GetInt("SettingsCompleted") == 0)
+//        {
+//            SceneManager.LoadScene("InitialSettings");
+//        }
+//        else
+//        {
+//            SceneManager.LoadScene("Main");
+//        }
+//#endif
     }
 }

@@ -47,7 +47,6 @@ public class AccountCanvasController : MonoBehaviour
     public GameObject deleteButton;
     private List<GameObject> recentlyAdded = new List<GameObject>();
     #endregion
-    public HomeCanvasController homeCanvasController;
 
 
     // Start is called before the first frame update
@@ -301,7 +300,6 @@ public class AccountCanvasController : MonoBehaviour
     {
         moneyText.text = string.Format("{0:n0}", PlayerPrefs.GetInt("Money"));
         moneyText.text += "¿ø";
-        homeCanvasController.RefreshBalance();
     }
 
     private int CompareParsedDate(string t1, string t2)
