@@ -18,6 +18,7 @@ public class InitSettingsSceneController : MonoBehaviour
     public Image[] rankBars;
 
     private string userName = "";
+ 
     private int dialogPage = 0;
     private ERanks rank = ERanks.Ilbyung;
 
@@ -185,10 +186,8 @@ public class InitSettingsSceneController : MonoBehaviour
 
             case 6:
                 string input = textInputField.text;
-                string parse = "20" + input.Substring(0, 2) + "-" + input.Substring(2, 2) + "-" + input.Substring(4, 2);
+                string parse = "";
 
-                PlayerPrefs.SetString("DDay", parse);
-                //DateTime targetDay = DateTime.Parse(parse);
                 DateTime targetDay;
                 if (input == "")
                 {
@@ -197,7 +196,12 @@ public class InitSettingsSceneController : MonoBehaviour
                     dialogPage--;
                     break;
                 }
-                else if (!DateTime.TryParse(parse, out targetDay))
+                else if (input.Length == 6)
+                {
+                    parse = "20" + input.Substring(0, 2) + "-" + input.Substring(2, 2) + "-" + input.Substring(4, 2);
+                }
+
+                if (!DateTime.TryParse(parse, out targetDay))
                 {
                     titleText.text = "다시 입력해주세요.";
                     descriptionText.text = "날짜가 유효하지 않습니다.\n<size=40>YYMMDD 형태로 입력해주세요.\n예: 220321</size>";
@@ -206,6 +210,7 @@ public class InitSettingsSceneController : MonoBehaviour
                 }
 
                 textInputField.gameObject.SetActive(false);
+                PlayerPrefs.SetString("DDay", parse);
 
                 titleText.text = "마지막 확인이에요!";
                 descriptionText.text = "전역일이 " + targetDay.Year + "년 " + targetDay.Month + "월 " + targetDay.Day + "일 맞나요?";
