@@ -44,6 +44,8 @@ public class AccountCanvasController : MonoBehaviour
     private EAccountDataType type = EAccountDataType.Income;
     #endregion
     #region Data_Delete
+    public GameObject deleteButton;
+    private List<GameObject> recentlyAdded = new List<GameObject>();
     #endregion
 
 
@@ -53,17 +55,13 @@ public class AccountCanvasController : MonoBehaviour
         dataViewCanvas = GetComponent<Canvas>();
 
         //분지비 잔액 불러오기
-
-        moneyText.text = string.Format("{0:n0}", PlayerPrefs.GetInt("Money"));
-        moneyText.text += "원";
-        /*
-        data.Add(new AccountData("20.12.13", EAccountDataType.Income, 10000, 43000, "가나다1"));
-        data.Add(new AccountData("21.01.25", EAccountDataType.Income, 10000, 33000, "가나다2"));
-        data.Add(new AccountData("21.01.27", EAccountDataType.Expenditure, 3000, 30000, "가나다3"));
-
-        saveData();
-        */
+        RefreshBalance();
         loadData();
+
+        if (data.Count > 0)
+        {
+            deleteButton.gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -77,11 +75,16 @@ public class AccountCanvasController : MonoBehaviour
         GameObject dataObject = Instantiate(dataPrefab);
         dataObject.transform.SetParent(dataPrefabParent.transform, false);
         dataObject.GetComponent<AccountDataObject>().SetData(data);
+        recentlyAdded.Add(dataObject);
     }
 
-    private void OnEnable()
+    private void removeDataOnScreen()
     {
-
+        if (recentlyAdded.Count != 0)
+        {
+            Destroy(recentlyAdded[recentlyAdded.Count - 1]);
+            recentlyAdded.RemoveAt(recentlyAdded.Count - 1);
+        }
     }
 
     private void activateCanvas(EAccountCanvasType type)
@@ -99,6 +102,11 @@ public class AccountCanvasController : MonoBehaviour
                 dataAddCanvas.enabled = false;
                 break;
             case EAccountCanvasType.ViewData:
+                if (data.Count > 0)
+                {
+                    deleteButton.gameObject.SetActive(true);
+                }
+                RefreshBalance();
                 dataViewCanvas.enabled = true;
                 dataDeleteCanvas.enabled = false;
                 dataAddCanvas.enabled = false;
@@ -184,6 +192,7 @@ public class AccountCanvasController : MonoBehaviour
             return;
         }
 
+
         string amount = amountInputField.text;
         if (amount == "")
         {
@@ -199,18 +208,33 @@ public class AccountCanvasController : MonoBehaviour
         }
 
         string dateFormatted = date.Substring(0, 2) + "." + date.Substring(2, 2) + "." + date.Substring(4, 2);
+
+        if (data.Count != 0 && CompareParsedDate(data[data.Count - 1].date, dateFormatted) > 0)
+        {
+            errorText.text = "오류: 가장 최근 기록보다 이전 날짜";
+            return;
+        }
+
         int amountInteger = int.Parse(amount);
+
         int balance;
         if (data.Count != 0)
         {
-            balance = data[data.Count - 1].balance - int.Parse(amount);
+            if (type == EAccountDataType.Expenditure)
+            {
+                balance = data[data.Count - 1].balance - amountInteger;
+            }
+            else
+            {
+                balance = data[data.Count - 1].balance + amountInteger;
+            }
         }
         else
         {
             balance = amountInteger;
-            if (type == EAccountDataType.Expenditure) balance *= -1;
         }
 
+        PlayerPrefs.SetInt("Money", balance);
         AccountData newData = new AccountData(dateFormatted, type, amountInteger, balance, memo);
         data.Add(newData);
         addDataOnScreen(newData);
@@ -222,20 +246,71 @@ public class AccountCanvasController : MonoBehaviour
     public void OnDataAddCancelBtnClick()
     {
         ResetInputFields();
-        //activateCanvas(EAccountCanvasType.ViewData);
+        activateCanvas(EAccountCanvasType.ViewData);
+    }
+
+    public void OnDataDeleteConfirmBtnClick()
+    {
+        if (data.Count != 0)
+        {
+            int balance = PlayerPrefs.GetInt("Money");
+            EAccountDataType type = data[data.Count - 1].type;
+
+            switch (type)
+            {
+                case EAccountDataType.Expenditure:
+                    balance += data[data.Count - 1].amount;
+                    break;
+
+                case EAccountDataType.Income:
+                    balance -= data[data.Count - 1].amount;
+                    break;
+
+                default:
+                    Debug.Assert(false);
+                    break;
+            }
+            PlayerPrefs.SetInt("Money", balance);
+            data.RemoveAt(data.Count - 1);
+            removeDataOnScreen();
+            saveData();
+        }
+        activateCanvas(EAccountCanvasType.ViewData);
+    }
+
+    public void OnDataDeleteCancelBtnClick()
+    {
+        activateCanvas(EAccountCanvasType.ViewData);
     }
 
     private void ResetInputFields()
     {
-        amountInputField.Select();
         amountInputField.text = "";
-
-        /*
-        dateInputField.Select();
         dateInputField.text = "";
-
-        memoInputField.Select();
         memoInputField.text = "";
-        */
+    }
+
+    private void RefreshBalance()
+    {
+        moneyText.text = string.Format("{0:n0}", PlayerPrefs.GetInt("Money"));
+        moneyText.text += "원";
+    }
+
+    private int CompareParsedDate(string t1, string t2)
+    {
+        Debug.Log(t1 + "  " + t2);
+        int t1Year = int.Parse(t1.Substring(0, 2)) * 10000;
+        int t1Month = int.Parse(t1.Substring(3, 2)) * 100;
+        int t1Day = int.Parse(t1.Substring(6, 2));
+        int t1Date = t1Year + t1Month + t1Day;
+
+        int t2Year = int.Parse(t2.Substring(0, 2)) * 10000; ;
+        int t2Month = int.Parse(t2.Substring(3, 2)) * 100; ;
+        int t2Day = int.Parse(t2.Substring(6, 2));
+        int t2Date = t2Year + t2Month + t2Day;
+        Debug.Log(t1Date);
+        Debug.Log(t2Date);
+
+        return t1Date - t2Date;
     }
 }
