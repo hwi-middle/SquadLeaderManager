@@ -34,13 +34,15 @@ public class AccountDataObject : MonoBehaviour
         {
             case EAccountDataType.Income:
                 amountText.font = boldFont;
-                amountText.text = "+" + data.amount.ToString() + "원";
+                amountText.text = "+";
+                amountText.text += string.Format("{0:n0}", data.amount);
+                amountText.text += "원";
                 break;
             case EAccountDataType.Expenditure:
                 amountText.font = lightFont;
-                amountText.text = "<color=#ff0000>-" + data.amount.ToString() + "원</color>";
+                amountText.text = "<color=#ff0000>-" + string.Format("{0:n0}", data.amount) + "원</color>";
                 break;
         }
-        balanceText.text = data.balance.ToString() + "원";
+        balanceText.text = string.Format("{0:n0}", data.balance) + "원";
     }
 }

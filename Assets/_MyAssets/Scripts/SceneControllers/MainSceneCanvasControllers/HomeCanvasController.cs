@@ -33,8 +33,7 @@ public class HomeCanvasController : MonoBehaviour
         }
 
         //분지비 불러오기
-        moneyText.text = string.Format("{0:n0}", PlayerPrefs.GetInt("Money"));
-        moneyText.text += "원";
+        RefreshBalance();
 
         //분대 총원 불러오기
         squadText.text = PlayerPrefs.GetInt("Squad").ToString();
@@ -45,5 +44,26 @@ public class HomeCanvasController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void RefreshBalance()
+    {
+        moneyText.text = string.Format("{0:n0}", PlayerPrefs.GetInt("Money"));
+        moneyText.text += "원";
+    }
+
+    public void OnNarasarangBtnClick()
+    {
+        Application.OpenURL("http://www.narasarang.or.kr/");
+    }
+
+    public void OnHelpCallBtnClick()
+    {
+        Application.OpenURL("tel:1303");
+    }
+
+    public void OnCovidBtnClick()
+    {
+        Application.OpenURL("https://www.korea.kr/news/visualNewsView.do?newsId=148870359");
     }
 }

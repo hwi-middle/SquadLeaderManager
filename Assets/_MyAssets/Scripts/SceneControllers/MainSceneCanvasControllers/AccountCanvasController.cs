@@ -35,18 +35,19 @@ public class AccountCanvasController : MonoBehaviour
     public Sprite darkRect;
     public Sprite lightRect;
 
-    public Text exampleText;
+    public InputField exampleText;
     public Text errorText;
     public InputField dateInputField;
     public InputField amountInputField;
     public InputField memoInputField;
 
-    private EAccountDataType type = EAccountDataType.Income;
+    private EAccountDataType curType = EAccountDataType.Income;
     #endregion
     #region Data_Delete
     public GameObject deleteButton;
     private List<GameObject> recentlyAdded = new List<GameObject>();
     #endregion
+    public HomeCanvasController homeCanvasController;
 
 
     // Start is called before the first frame update
@@ -106,6 +107,10 @@ public class AccountCanvasController : MonoBehaviour
                 {
                     deleteButton.gameObject.SetActive(true);
                 }
+                else
+                {
+                    deleteButton.gameObject.SetActive(false);
+                }
                 RefreshBalance();
                 dataViewCanvas.enabled = true;
                 dataDeleteCanvas.enabled = false;
@@ -152,8 +157,8 @@ public class AccountCanvasController : MonoBehaviour
 
     public void OnIncomeBtnClick()
     {
-        exampleText.text = "예: 분지비 입금";
-        type = EAccountDataType.Income;
+        exampleText.placeholder.GetComponent<Text>().text = "예: 분지비 입금";
+        curType = EAccountDataType.Income;
         incomeButton.transform.Find("Text").GetComponent<Text>().color = new Color(1.0f, 1.0f, 1.0f);
         incomeButton.GetComponent<Image>().sprite = darkRect;
         expenditureButton.transform.Find("Text").GetComponent<Text>().color = new Color(0.0f, 0.0f, 0.0f);
@@ -162,8 +167,8 @@ public class AccountCanvasController : MonoBehaviour
 
     public void OnExpenditureBtnClick()
     {
-        exampleText.text = "예: 김상병 고무링 구매";
-        type = EAccountDataType.Expenditure;
+        exampleText.placeholder.GetComponent<Text>().text = "예: 김상병 고무링 구매";
+        curType = EAccountDataType.Expenditure;
         expenditureButton.transform.Find("Text").GetComponent<Text>().color = new Color(1.0f, 1.0f, 1.0f);
         expenditureButton.GetComponent<Image>().sprite = darkRect;
         incomeButton.transform.Find("Text").GetComponent<Text>().color = new Color(0.0f, 0.0f, 0.0f);
@@ -220,7 +225,7 @@ public class AccountCanvasController : MonoBehaviour
         int balance;
         if (data.Count != 0)
         {
-            if (type == EAccountDataType.Expenditure)
+            if (curType == EAccountDataType.Expenditure)
             {
                 balance = data[data.Count - 1].balance - amountInteger;
             }
@@ -235,17 +240,17 @@ public class AccountCanvasController : MonoBehaviour
         }
 
         PlayerPrefs.SetInt("Money", balance);
-        AccountData newData = new AccountData(dateFormatted, type, amountInteger, balance, memo);
+        AccountData newData = new AccountData(dateFormatted, curType, amountInteger, balance, memo);
         data.Add(newData);
         addDataOnScreen(newData);
         saveData();
-        ResetInputFields();
+        ResetDataAddCanvas();
         activateCanvas(EAccountCanvasType.ViewData);
     }
 
     public void OnDataAddCancelBtnClick()
     {
-        ResetInputFields();
+        ResetDataAddCanvas();
         activateCanvas(EAccountCanvasType.ViewData);
     }
 
@@ -283,22 +288,24 @@ public class AccountCanvasController : MonoBehaviour
         activateCanvas(EAccountCanvasType.ViewData);
     }
 
-    private void ResetInputFields()
+    private void ResetDataAddCanvas()
     {
         amountInputField.text = "";
         dateInputField.text = "";
         memoInputField.text = "";
+        errorText.text = "";
+        OnIncomeBtnClick();
     }
 
     private void RefreshBalance()
     {
         moneyText.text = string.Format("{0:n0}", PlayerPrefs.GetInt("Money"));
         moneyText.text += "원";
+        homeCanvasController.RefreshBalance();
     }
 
     private int CompareParsedDate(string t1, string t2)
     {
-        Debug.Log(t1 + "  " + t2);
         int t1Year = int.Parse(t1.Substring(0, 2)) * 10000;
         int t1Month = int.Parse(t1.Substring(3, 2)) * 100;
         int t1Day = int.Parse(t1.Substring(6, 2));
@@ -308,8 +315,6 @@ public class AccountCanvasController : MonoBehaviour
         int t2Month = int.Parse(t2.Substring(3, 2)) * 100; ;
         int t2Day = int.Parse(t2.Substring(6, 2));
         int t2Date = t2Year + t2Month + t2Day;
-        Debug.Log(t1Date);
-        Debug.Log(t2Date);
 
         return t1Date - t2Date;
     }
