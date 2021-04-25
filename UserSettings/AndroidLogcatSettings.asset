@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "ce081718ed67e906057e",
     "m_SelectedPackage": {
-        "deviceId": "ce081718ed67e906057e",
-        "name": "com.DefaultCompany.NewUnityProject",
-        "processId": 12910,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -30,6 +30,12 @@
             "deviceId": "ce081718ed67e906057e",
             "name": "com.DefaultCompany.NewUnityProject",
             "processId": 12910,
+            "exited": false
+        },
+        {
+            "deviceId": "ce081718ed67e906057e",
+            "name": "com.DefaultCompany.NewUnityProject",
+            "processId": 30103,
             "exited": false
         }
     ],
