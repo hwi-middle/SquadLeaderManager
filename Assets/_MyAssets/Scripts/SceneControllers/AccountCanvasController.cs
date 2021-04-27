@@ -64,16 +64,26 @@ public class AccountCanvasController : MonoBehaviour
 
     // Update is called once per frame
 
-#if UNITY_EDITOR
+
     private void Update()
     {
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.M))
         {
             ScreenCapture.CaptureScreenshot("ScreenShot" + DateTime.Now.Second + DateTime.Now.Millisecond + ".png");
             Debug.Log("스크린샷저장");
         }
-    }
 #endif
+        if (Input.GetKey(KeyCode.Escape))
+        {
+#if UNITY_EDITOR
+            Debug.Log("뒤로가기 키에 의한 종료");
+#else
+            Application.Quit();
+#endif
+        }
+    }
+
 
 
     private void addDataOnScreen(AccountData data)
