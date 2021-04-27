@@ -17,7 +17,7 @@ public enum EAccountCanvasType
 public class AccountCanvasController : MonoBehaviour
 {
     #region Data_View
-    private Canvas dataViewCanvas;
+    public Canvas dataViewCanvas;
     public Canvas dataAddCanvas;
     public Canvas dataDeleteCanvas;
 
@@ -52,8 +52,6 @@ public class AccountCanvasController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dataViewCanvas = GetComponent<Canvas>();
-
         //분지비 잔액 불러오기
         RefreshBalance();
         loadData();
